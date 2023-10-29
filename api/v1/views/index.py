@@ -6,14 +6,14 @@ from models import storage
 
 
 # Create a route /status on the object app_views that returns a JSON response
-@app_views.route('/status', methods=['GET'])
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
 def get_status():
     """Get status Method"""
     return jsonify({"status": "OK"})
 
 
 # Create a route /stats that retrieves the count of each object type
-@app_views.route('/stats', methods=['GET'])
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def get_stats():
     stats = {
         "amenities": storage.count("Amenity"),
