@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Flask App Module"""
-from flask import Flask
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 import os
@@ -11,6 +11,14 @@ app = Flask(__name__)
 
 # Register the blueprint app_views to your Flask instance app
 app.register_blueprint(app_views)
+
+
+# Create a handler for 404 errors that returns a JSON-formatted 404 response
+@app.errorhandler(404)
+def not_found(error):
+    response = jsonify({"error": "Not found"})
+    response.status_code = 404
+    return response
 
 
 @app.teardown_appcontext
