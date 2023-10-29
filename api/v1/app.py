@@ -3,11 +3,15 @@
 from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
+from flask_cors import CORS
 import os
 
 
 # Create a Flask instance
 app = Flask(__name__)
+
+# Enable CORS for all routes
+CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 # Register the blueprint app_views to your Flask instance app
 app.register_blueprint(app_views)
@@ -16,9 +20,8 @@ app.register_blueprint(app_views)
 # Create a handler for 404 errors that returns a JSON-formatted 404 response
 @app.errorhandler(404)
 def not_found(error):
-    response = jsonify({"error": "Not found"})
-    response.status_code = 404
-    return response
+    """Error handler message"""
+    return jsonify({"error": "Not found"}), 404
 
 
 @app.teardown_appcontext
