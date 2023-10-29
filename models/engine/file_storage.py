@@ -44,7 +44,7 @@ class FileStorage:
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
         if obj is not None:
-            key = obj.__class__.__name__ + "." + obj.id
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
             self.__objects[key] = obj
 
     def save(self):
@@ -68,7 +68,7 @@ class FileStorage:
     def delete(self, obj=None):
         """delete obj from __objects if it’s inside"""
         if obj is not None:
-            key = obj.__class__.__name__ + "." + obj.id
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
 
@@ -78,7 +78,7 @@ class FileStorage:
 
     def get(self, cls, id):
         """A method to retrieve one object"""
-        obj = f"{cls.__name__}.{id}"
+        obj = "{}.{}".format(cls.__name__, id)
         return self.all().get(obj)
 
     def count(self, cls=None):

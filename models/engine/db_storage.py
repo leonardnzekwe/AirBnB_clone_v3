@@ -54,7 +54,7 @@ class DBStorage:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + "." + obj.id
+                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
                     new_dict[key] = obj
         return new_dict
 
@@ -84,7 +84,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """A method to retrieve one object"""
-        obj = f"{cls.__name__}.{id}"
+        obj = "{}.{}".format(cls.__name__, id)
         return self.all().get(obj)
 
     def count(self, cls=None):
